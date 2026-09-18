@@ -1,0 +1,15 @@
+{
+  "modelingMode": "procedural",
+  "parts": [
+    {
+      "id": "base",
+      "name": "Demonstration base",
+      "quantity": 1,
+      "route": "assistant_geometry",
+      "routeReason": "A regular shape suitable for local geometry",
+      "geometryMethod": "ExtrudeGeometry",
+      "referenceFiles": [],
+      "status": "planned"
+    }
+  ]
+}

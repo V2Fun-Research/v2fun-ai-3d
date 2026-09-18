@@ -1,0 +1,4 @@
+interface:
+  display_name: "V2Fun AI 3D"
+  short_description: "Procedural and AI 3D modeling with Three.js assembly"
+  default_prompt: "Use $v2fun-ai-3d to choose procedural, AI, or hybrid modeling from my references, reuse the bundled runtime, and deliver a validated GLB with its Three.js source project."

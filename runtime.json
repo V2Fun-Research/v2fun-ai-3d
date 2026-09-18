@@ -1,0 +1,16 @@
+{
+  "name": "v2fun-ai-3d",
+  "version": "1.0.0",
+  "api_major": 1,
+  "python_min": "3.9",
+  "capabilities": [
+    "config",
+    "doctor",
+    "node-dependencies",
+    "balance",
+    "meshes-manifest",
+    "budget",
+    "local-status",
+    "glb-inspect"
+  ]
+}

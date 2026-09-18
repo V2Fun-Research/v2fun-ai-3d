@@ -1,0 +1,17 @@
+# Credentials and local task data
+.env
+.env.*
+!.env.example
+.v2fun/
+v2fun.local.yaml
+api-jobs/
+source-models/
+# Local runtimes and generated artifacts
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+.DS_Store
+coverage/
+
+# Examples are synthetic and intentionally tracked.

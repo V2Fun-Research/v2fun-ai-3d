@@ -1,0 +1,6 @@
+{
+  "task_uuid": "demo-task",
+  "status": "COMPLETED",
+  "execution_phase": "downloaded",
+  "local_model": "source-models/demo.glb"
+}
