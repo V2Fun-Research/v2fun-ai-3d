@@ -52,3 +52,7 @@ Use only credentials supplied through the current environment or an explicitly s
 Default reference generation uses gpt-image-2; 3D uses pro with all three texture flags enabled. Do not silently switch services or models. Respect user limits across batches and recovery. New stages or paid retries outside the authorized plan require additional authorization. Installation, configuration, a ledger entry, or a model's own decision cannot grant permission.
 
 Skill edits and analysis do not start generation. Image-only requests do not start 3D generation. Unrelated uploads, public publishing, account top-ups, and unlimited retries are outside modeling authorization.
+
+## Server selection
+
+Before remote calls, follow [CN/global routing](references/server-routing.md). Run scripts/v2fun.py region with the task project; normalize Bearer input, verify the selected server, and report its name and balance. Never infer the server from language or key appearance. Bind all quotes, task records and recovery to that server; a paid API failure never authorizes cross-server failover. Missing credentials do not block local work.

@@ -58,7 +58,15 @@ def main():
     if not args.generate or not todo:
         return
     config=load_config(ROOT, args.config)
-    client=Client(config, opener=urlopen)
+    bindings=[]
+    for part in todo:
+        record=jobs/(part['id']+'.json')
+        if record.exists():
+            old=json.loads(record.read_text())
+            if not old.get('server'):raise ValueError('Legacy task lacks server binding; explicitly migrate original server before recovery')
+            bindings.append(old['server'])
+    if bindings and any(b != bindings[0] for b in bindings):raise ValueError('Project contains different server/account bindings; separate task recovery')
+    client=Client(config, binding=bindings[0] if bindings else None)
     if any(config.get(k) is not True for k in ['with_texture','pbr_texture','hd_texture']):
         raise ValueError('Default textured workflow requires all three texture flags true')
     if type(config.get('concurrency',1)) is not int or not 1 <= config.get('concurrency',1) <= 2:
@@ -94,7 +102,7 @@ def main():
                     history.append({k:state.get(k) for k in ['status','submission_outcome','submission_evidence','http_status']})
                 payload={k:config[k] for k in ['model','with_texture','pbr_texture','hd_texture']}
                 payload.update(input_image='data:image/png;base64,'+base64.b64encode(raw).decode(),options={'block':False})
-                state={'part_id':pid,'reference_sha256':hashlib.sha256(raw).hexdigest(),'endpoint':'/3d_models/meshes','status':'SUBMITTING','submission_outcome':'uncertain','submission_history':history,'started_at':time.time()}
+                state={'server':client.binding(),'part_id':pid,'reference_sha256':hashlib.sha256(raw).hexdigest(),'endpoint':'/3d_models/meshes','status':'SUBMITTING','submission_outcome':'uncertain','submission_history':history,'started_at':time.time()}
                 budget.reserve(record,'meshes')
                 save(record,state)
                 try:

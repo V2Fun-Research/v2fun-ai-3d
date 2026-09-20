@@ -8,7 +8,7 @@ Read this local reference for routine use. When the user requests a refresh, int
 
 ## Verified interfaces
 
-Base URL: `https://api.v2fun.art/api/v1`; JSON requests with Bearer authentication. Set `options.block=false` for asynchronous execution. Creation may return 200 or 201; persist `task_uuid` and query the matching GET endpoint. States: QUEUED/PROCESSING/COMPLETED/FAILED. Image generation/editing and mesh results are asset URI arrays, not OpenAI synchronous image responses. Optional `options.priority` is 0–255 and must not exceed the client's `mq_priority`; normally omit it.
+Base URL comes from the verified [CN/global binding](server-routing.md); JSON requests with Bearer authentication. Set `options.block=false` for asynchronous execution. Creation may return 200 or 201; persist `task_uuid` and query the matching GET endpoint. States: QUEUED/PROCESSING/COMPLETED/FAILED. Image generation/editing and mesh results are asset URI arrays, not OpenAI synchronous image responses. Optional `options.priority` is 0–255 and must not exceed the client's `mq_priority`; normally omit it.
 
 | Stage | Create / query | Request fields |
 | --- | --- | --- |
@@ -43,3 +43,5 @@ The runtime implements single-image meshes, balance, status, and downloads. Text
 - When account limits are unknown, allow at most two unfinished tasks across image, mesh, retopology, and texture stages; stricter account limits prevail. Count queued/running tasks. The bundled executor does not enforce this across projects.
 - Record finite whole-task and stage ceilings under current user authorization, including reference preparation and corrections. Queries/downloads do not count as new tasks. Resume known IDs without requiring a new-submission budget record. Actual charges come from the account balance/billing.
 - Local construction may proceed concurrently. One coordinator updates shared manifests; each task owns its own record. Failures pause only dependent work.
+
+Server selection and credential normalization are specified in [server routing](server-routing.md). Historical CN schema/rate examples are not global pricing guarantees. Use the selected documentation host, preserve the task binding, and never silently fall back to CN.

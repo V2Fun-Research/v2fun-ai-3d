@@ -16,7 +16,7 @@ Choose the right method for each part. Assemble in Three.js. Deliver a GLB and e
 [English](./README.md) | [简体中文](./README.zh-CN.md)
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Version: 1.0.0](https://img.shields.io/badge/version-1.0.0-green.svg)](runtime.json)
+[![Version: 1.1.0](https://img.shields.io/badge/version-1.1.0-green.svg)](runtime.json)
 [![Runtime: Three.js](https://img.shields.io/badge/runtime-Three.js-000000.svg)](https://threejs.org/)
 [![Tooling: Python 3.9+ stdlib](https://img.shields.io/badge/tooling-Python%203.9%2B%20stdlib-3776AB.svg)](scripts)
 [![Sponsor: V2Fun](https://img.shields.io/badge/Sponsor-V2Fun-16161A.svg)](https://v2fun.ai/)
@@ -26,6 +26,10 @@ Choose the right method for each part. Assemble in Three.js. Deliver a GLB and e
 
 ---
 ## Live demos
+
+| Offline example | Description | View |
+| --- | --- | --- |
+| Runtime inventory | Bundled local inventory result and CN/global endpoint map | [View](example/index.html) |
 
 Explore the V2Fun AI 3D showcase on the V2Fun website.
 
@@ -65,6 +69,8 @@ Default remote models are `gpt-image-2` for reference images and `pro` for meshe
 See [modeling routes](references/modeling-routes.md), [generation and recovery](references/ai-generation.md), and [validation](references/threejs-runtime.md).
 
 ## Quick start
+
+CN/global routing is included. Before remote work, run `python3 scripts/v2fun.py region --project /path/to/project`; use `V2FUN_REGION=cn` or `V2FUN_REGION=global` to select explicitly. Automatic detection uses read-only balance requests. Quotes and saved tasks stay bound to the selected server. See [server routing](references/server-routing.md).
 
 ### 1. Install the skill
 
@@ -122,7 +128,7 @@ A download or metadata report alone is not acceptance. Missing key parts, lost t
 
 ## Roadmap
 
-### v1.0.0
+### v1.1.0
 
 - [x] Standalone runtime and part-based procedural/AI routing.
 - [x] Mesh submission, in-process polling, download, and recovery.

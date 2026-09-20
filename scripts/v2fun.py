@@ -10,7 +10,7 @@ import shutil
 import subprocess
 import sys
 
-from v2fun_client import DEFAULTS, Client, api_key, config_path, load_config
+from v2fun_client import DEFAULTS, Client, api_key, config_path, load_config, selected_region
 
 ROOT = Path(__file__).resolve().parent
 COMMANDS = {'models': 'v2fun_generate.py', 'status': 'task_status.py',
@@ -45,7 +45,9 @@ def doctor(project, explicit=None):
         report['key_present'] = True
     except ValueError:
         report['key_present'] = False
-    report['api_ready'] = report['key_present']
+    report['api_ready'] = False
+    report['region'] = selected_region(config)
+    report['region_verified'] = False
     report['status'] = 'local_ready' if sys.version_info >= (3, 9) else 'needs_attention'
     node = shutil.which('node')
     report['node'] = None
@@ -82,7 +84,7 @@ def install_deps(project, packages):
             reused.append(name)
             continue
         if declared is not None or actual is not None:
-            raise ValueError('Existing dependency '+name+' requires explicit reconciliation; the runtime will not overwrite it')
+            raise ValueError('Existing dependency '+name+' requires explicit reconciliation; setup will not overwrite it')
         pending.append(name+'@'+version)
     if pending:
         npm = shutil.which('npm')
@@ -103,11 +105,13 @@ def main():
         return
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
-    for name in ['doctor', 'init', 'balance', 'deps']:
+    for name in ['doctor', 'init', 'balance', 'region', 'deps']:
         p = sub.add_parser(name)
         p.add_argument('--project', type=Path, required=True)
-        if name in ['doctor', 'balance']:
+        if name in ['doctor', 'balance', 'region']:
             p.add_argument('--config', type=Path)
+        if name in ['balance', 'region']:
+            p.add_argument('--region', choices=['auto', 'cn', 'global'])
         if name == 'deps':
             p.add_argument('--package', action='append', required=True)
     for name in COMMANDS:
@@ -120,7 +124,8 @@ def main():
     elif args.command == 'deps':
         result = install_deps(args.project, args.package)
     else:
-        result = {'balance': Client(load_config(args.project, args.config)).request('/balance')}
+        client = Client(load_config(args.project, args.config, args.region))
+        result = {'region': client.region, 'base_url': client.base, 'region_verified': True, 'balance': client.balance}
     print(json.dumps(result, ensure_ascii=False))
 
 

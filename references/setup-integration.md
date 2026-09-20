@@ -30,3 +30,5 @@ Direct scripts contain the implementation and retain their arguments. Node code 
 For status-only requests, read [Status monitoring](status-monitoring.md) and provide a task ID plus state-file path without modeling images or full history.
 
 Existing parts-manifest.json, api-jobs/, source-models/, and assembly projects remain compatible. Preserve cumulative budgets and shared project locks. Run one executor per project. Modeling, validation, and authorization remain governed by SKILL.md and the route guidance.
+
+Server selection and credential normalization are specified in [server routing](server-routing.md). Historical CN schema/rate examples are not global pricing guarantees. Use the selected documentation host, preserve the task binding, and never silently fall back to CN.

@@ -16,7 +16,7 @@
 [English](./README.md) | [简体中文](./README.zh-CN.md)
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Version: 1.0.0](https://img.shields.io/badge/version-1.0.0-green.svg)](runtime.json)
+[![Version: 1.1.0](https://img.shields.io/badge/version-1.1.0-green.svg)](runtime.json)
 [![Runtime: Three.js](https://img.shields.io/badge/runtime-Three.js-000000.svg)](https://threejs.org/)
 [![Tooling: Python 3.9+ stdlib](https://img.shields.io/badge/tooling-Python%203.9%2B%20stdlib-3776AB.svg)](scripts)
 [![Sponsor: V2Fun](https://img.shields.io/badge/Sponsor-V2Fun-16161A.svg)](https://v2fun.ai/)
@@ -26,6 +26,10 @@
 
 ---
 ## Live demos
+
+| 离线示例 | 描述 | 查看 |
+| --- | --- | --- |
+| 运行环境盘点 | 内置本地盘点结果与国内／海外端点映射 | [查看](example/index.html) |
 
 在 V2Fun 官网查看 V2Fun AI 3D 演示。
 
@@ -65,6 +69,8 @@
 详见 [建模路线](references/modeling-routes.md)、[生成与恢复](references/ai-generation.md) 和 [验证流程](references/threejs-runtime.md)。
 
 ## Quick start
+
+已内置国内服／海外服识别。远程操作前运行 `python3 scripts/v2fun.py region --project /path/to/project`；可通过 `V2FUN_REGION=cn` 或 `V2FUN_REGION=global` 明确选择。自动识别仅查询余额，报价和已有任务始终绑定对应服务器。详见[服务器选择](references/server-routing.md)。
 
 ### 1. 安装技能
 
@@ -122,7 +128,7 @@ python3 scripts/v2fun.py models --project examples/local-inventory
 
 ## Roadmap
 
-### v1.0.0
+### v1.1.0
 
 - [x] 独立运行能力，以及按部件选择过程式／AI 路线。
 - [x] 网格提交、进程内轮询、下载和恢复。
